@@ -1,0 +1,6 @@
+__pycache__
+venv
+*.pyc
+bot.log
+access.log
+insta_fastapi_db.db
