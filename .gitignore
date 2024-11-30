@@ -4,3 +4,5 @@ venv
 bot.log
 access.log
 insta_fastapi_db.db
+test.py
+result.txt

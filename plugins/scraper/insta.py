@@ -17,6 +17,20 @@ class InstaScraper:
         HTTP_HEADERS['x-ig-app-id'] = '936619743392459'
         return (await self.send_request(url)) 
 
+
+    async def get_profile_info_by_userid(self, userid):
+        url = f"https://www.instagram.com/api/v1/users/{userid}/info/"
+        HTTP_HEADERS['x-asbd-id'] = '198387'
+        HTTP_HEADERS['x-ig-app-id'] = '936619743392459'
+        user_data = await self.send_request(url)
+        user_status = user_data.get("status")
+        if user_status == 500 or user_status == "fail":
+            return user_data
+        user_username = user_data.get("user").get("username")
+        return (await self.get_profile_info(user_username))
+
+
+
     async def get_post_info(self, post_key):
         url = 'https://www.instagram.com/graphql/query/?query_hash=9f8827793ef34641b2fb195d4d41151c&variables={"shortcode":"%s"}' % (post_key, )
 

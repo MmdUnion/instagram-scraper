@@ -16,8 +16,11 @@ def url_isvalid(url):
     # match username by url only
     match_username_pattern1 = re.findall(r"(?:https?:\/\/)?(?:www\.)?instagram\.com\/([A-Za-z0-9-_.]{0,29}).*", url)
 
+    # match username by user_id
+    match_username_pattern2 = re.findall("^[0-9]+$", url)
+
     # match username by @ or not 
-    match_username_pattern2 = re.findall(r"^(?:@?([A-Za-z0-9-_.]{0,29}))$", url)
+    match_username_pattern3 = re.findall(r"^(?:@?([A-Za-z0-9-_.]{0,29}))$", url)
 
 
     data_found = {}
@@ -41,9 +44,15 @@ def url_isvalid(url):
 
 
     elif match_username_pattern2 and len(match_username_pattern2) == 1:
-        username = match_username_pattern2[0]
+        user_id = match_username_pattern2[0]
+        data_found['type'] = "user_id"
+        data_found['key'] = user_id
+
+    elif match_username_pattern3 and len(match_username_pattern3) == 1:
+        username = match_username_pattern3[0]
         data_found['type'] = "username"
         data_found['key'] = username
+
 
     return data_found
 

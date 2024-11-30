@@ -62,6 +62,10 @@ async def get_media(item: UrlModel = Depends(), db: Session = Depends(get_db)):
             if load_raw_json:
                 load_raw_json['__type__'] = "user_profile"
 
+        elif get_type == "user_id":
+            load_raw_json = await get_insta.get_profile_info_by_userid(get_key)
+            if load_raw_json:
+                load_raw_json['__type__'] = "user_profile"
 
         if load_raw_json.get('status') != 500:
             if (load_raw_json.get("data") and load_raw_json.get("data").get("shortcode_media")) or (load_raw_json.get("data") and load_raw_json.get("data").get("user")):
